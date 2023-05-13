@@ -20,14 +20,12 @@ serGrosoEnNeedForSpeed nfs chico = agregarJueguito nfs : habilidades chico
 agregarJueguito :: [Char] -> [Char]
 agregarJueguito nfs = "Jugar need for speed " ++ nfs
 
-
 --serMayor unChico : hace que el chico tenga 18 años
 
 serMayor :: Chico -> Int
 serMayor chico   
     | edad chico > 18 = edad chico
     | otherwise = 18
-
 
 --2) los padrinos son seres magicos capaces de cumplir los deseos de sus ahijados
 
@@ -105,26 +103,34 @@ vicky = UnaChica "Vicky" (tieneHabilidad "ser un supermodelo noruego")
 -- quienConquistaA unaChica losPretendientes : dada una chica y una lista de pretendientes, devuelve al que se queda con la chica (chico que cumple con la condicion
 --que ella quiere). Si no hay ninguno que la cumpla, devuelve el ultimo pretendiente --> Recursividad
 
-cumpleCondicionChica :: Chica -> [Chico] -> [Chico]
-cumpleCondicionChica chica = filter (condicion chica)
-
-
 quienConquistaA :: Chica -> [Chico] -> Chico
-quienConquistaA chica (pretendiente: pretendientes) 
-    | length (cumpleCondicionChica chica (pretendiente: pretendientes)) == 1 = pretendiente
-    | otherwise = ultimoChicoDeLaLista pretendientes
+quienConquistaA chica (pretendiente: pretendientes)
+    | condicion chica pretendiente || length (pretendiente: pretendientes) == 1 = pretendiente
+    | otherwise = quienConquistaA chica pretendientes
+
+
+------Version alternativa y mas larga XD
+
+-- cumpleCondicionChica :: Chica -> [Chico] -> [Chico]
+-- cumpleCondicionChica chica = filter (condicion chica)
+
+
+-- quienConquistaA :: Chica -> [Chico] -> Chico
+-- quienConquistaA chica (pretendiente: pretendientes) 
+--     | length (cumpleCondicionChica chica (pretendiente: pretendientes)) == 1 = pretendiente
+--     | otherwise = ultimoChicoDeLaLista pretendientes
     
-ultimoChicoDeLaLista :: [Chico] -> Chico
-ultimoChicoDeLaLista [primerPretendiente] = primerPretendiente
-ultimoChicoDeLaLista (pretendiente : pretendientes) 
-    | length (pretendiente: pretendientes) >1 = ultimoChicoDeLaLista pretendientes
-    |otherwise = pretendiente
+-- ultimoChicoDeLaLista :: [Chico] -> Chico
+-- ultimoChicoDeLaLista [primerPretendiente] = primerPretendiente
+-- ultimoChicoDeLaLista (pretendiente : pretendientes) 
+--     | length (pretendiente: pretendientes) >1 = ultimoChicoDeLaLista pretendientes
+--     |otherwise = pretendiente
 
 jorgen :: Chico
-jorgen = UnChico "jorgen" 40 ["ser un supermodelo noruegoo"] [serMayor]
+jorgen = UnChico "jorgen" 40 ["ser un supermodelo noruego"] [serMayor]
 
 juanito :: Chico
-juanito = UnChico "juanito" 22 ["no tiene"] [serMayor]
+juanito = UnChico "juanito" 22 ["matar"] [serMayor]
 
 listaChicos :: [Chico]
 listaChicos = [jorgen, timmy, juanito]
@@ -134,7 +140,7 @@ listaChicos = [jorgen, timmy, juanito]
 nuevaChica :: Chica
 nuevaChica = UnaChica "Nueva chica" (tieneHabilidad "sepa cocinar")
 
-
+-- > Consulta: tieneHabilidad nuevaChica timmy
 
 --PARTE 3: Da Rules
 --infractoresDeDaRules : Dada una lista de chicos, devuelve la lista de los nombres 
@@ -142,14 +148,42 @@ nuevaChica = UnaChica "Nueva chica" (tieneHabilidad "sepa cocinar")
 -- entre las cinco primeras habilidades, hay alguna prohibida
 -- Habilidades prohibidas: enamorar, matar y dominar el mundo
 
+
+-- infractoresDeDaRules :: [Chico] -> [String]
+-- infractoresDeDaRules = map (nombre . tieneDeseosProhibidos)   
+
+-- tieneDeseosProhibidos ::Chico -> Chico
+-- tieneDeseosProhibidos chico 
+--     | any (`elem` habilidadesProhibidas) (habilidades chico) = chico
+--     | otherwise = tieneDeseosProhibidos chico --Recursion infinita XDDDDDDDDDDDDDDD arreglar
+
+
+-- infractoresDeDaRules :: [Chico] -> [String]
+-- infractoresDeDaRules chicos = map nombre (filter esInfractor  chicos)
+
+
+-- esInfractor :: Foldable t => t String -> Chico -> Bool
+-- esInfractor habilidadesProhibidas chico = any (`elem` habilidadesProhibidas) (habilidades chico)
+
+
 habilidadesProhibidas :: [String]
 habilidadesProhibidas = ["enamorar", "matar" ,"dominar el mundo"]
 
-{-
-infractoresDeDaRules :: [String] -> [Chico] -> Bool
-infractoresDeDaRules habilidadesProhibidas chicos 
-    | not (elem head habilidadesProhibidas (map habilidades chicos)) = infractoresDeDaRules (tail habilidadesProhibidas) chicos
-    | elem head habilidadesProhibidas (map habilidades chicos) = True 
-    |otherwise = False
+infractoresDeDaRules :: [Chico] -> [String]
+infractoresDeDaRules chicos = map nombre (filter (esInfractor habilidadesProhibidas) chicos)
 
--}
+
+esInfractor :: [String] -> Chico -> Bool
+esInfractor habilidadesProhibidas chico = any (`elem` habilidadesProhibidas) (habilidades chico)
+
+--Respuesta gpt :
+
+-- infractoresDeDaRules :: [Chico] -> [String]
+-- infractoresDeDaRules chicos = nombresInfractores
+--   where
+--     habilidadesProhibidas = ["enamorar", "matar" ,"dominar el mundo"]
+--     nombresInfractores = map nombre (filter (esInfractor habilidadesProhibidas) chicos)
+
+-- esInfractor :: [String] -> Chico -> Bool
+-- esInfractor habilidadesProhibidas chico = any (`elem` habilidadesProhibidas) (habilidades chico)
+
