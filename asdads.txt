@@ -2,6 +2,15 @@ Se quiere verificar si es cierto que una pelicula es de cierto genero, lo cual s
 Si la mayoria de los actores son de un determinado genero, entonces la pelicula es de dicho genero. 
 Se cuenta con informacion acerca de los actores de cada genero de la siguiente manera: 
 
+unaPeliculaEsDeCiertoGenero pelicula todosLosActores 
+    | filter head actores peli elem (snd (head todosLosActores)) 
+
+
+
+
+
+
+
 
 todosLosActores :: [( Genero , Actores )]
 todosLosActores = [("comedia", ["Carrey", "Grint", "Stiller"]), ("accion" , ["Stallone", "Willis", "Suar"]) , ("drama", ["De Niro", "Foster"])]

@@ -21,7 +21,8 @@ sumaLista lista = head lista + sumaLista (tail lista)
 
 --assasdas
 
-a = a+1
+a :: Integer -> Integer
+a = (+1)
 
 promedioFrecuenciaCardiaco :: [Int] -> Float
 promedioFrecuenciaCardiaco lista2 = fromIntegral (sum lista2) / fromIntegral (length lista2)

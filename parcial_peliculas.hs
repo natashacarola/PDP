@@ -45,7 +45,7 @@ esCiertoPeliculaEsDeGenero pelicula genero
 -}
 
 peliculaEsDeGenero :: Pelicula -> Genero -> Bool
-peliculaEsDeGenero pelicula genero = length (filter (`elem`actores pelicula) (actoresXGenero todosLosActores genero ) ) > length (actoresXGenero todosLosActores genero ) `div` 2 
+peliculaEsDeGenero pelicula genero = length (filter (`elem`actores pelicula) (actoresXGenero todosLosActores genero ) ) > length (actoresXGenero todosLosActores genero ) `div` 2 --ojo aca la division es entera 3/2 = 1 deberia ser 1,5 
 
 actoresXGenero :: [(Genero , Actores)] -> Genero -> Actores
 actoresXGenero listactores genero 
