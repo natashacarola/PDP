@@ -27,24 +27,30 @@ reemplazarAspecto aspectoBuscado situacion =
 
 {-
 
-Definir modificarAspecto que dada una función de tipo (Float -> Float) y un aspecto, modifique el aspecto alterando su grado en base
-a la función dada.
+Definir modificarAspecto que dada una función de tipo (Float -> Float) y un aspecto, modifique el aspecto alterando su
+grado en basea la función dada.
 
 -}
 
 funcion :: Float -> Float 
 funcion = (*2).(+1)
 
+aspecto :: Aspecto
+aspecto = UnAspecto "nombre" 1
 
---modificarAspecto :: (Float -> Float) -> Aspecto -> Aspecto
+modificarAspecto :: (Float -> Float) -> Aspecto -> Aspecto
+modificarAspecto f  (UnAspecto tipo grado) = UnAspecto tipo (f grado)
 
 {-
-Saber si una situación es mejor que otra: esto ocurre cuando, para la primer situación, cada uno de los aspectos, es mejor que
-ese mismo aspecto en la segunda situación.
+Saber si una situación es mejor que otra: esto ocurre cuando, para la primer situación, cada uno de los aspectos, 
+es mejor que ese mismo aspecto en la segunda situación.
 Nota: recordar que los aspectos no necesariamente se encuentran en el mismo orden para ambas situaciones. 
 Sin embargo, las situaciones a comparar siempre tienen los mismos aspectos.
 
 -}
+
+unaSituaciónEsMejorQueOtra situacion1 situacion2
+  | head situacion1 `elem` situacion2 
 
 {-
 Definir una función modificarSituacion que a partir de una situación permita obtener otra de modo que se modifique de 

@@ -1,0 +1,16 @@
+Se quiere verificar si es cierto que una pelicula es de cierto genero, lo cual se deduce de sus actores. 
+Si la mayoria de los actores son de un determinado genero, entonces la pelicula es de dicho genero. 
+Se cuenta con informacion acerca de los actores de cada genero de la siguiente manera: 
+
+
+todosLosActores :: [( Genero , Actores )]
+todosLosActores = [("comedia", ["Carrey", "Grint", "Stiller"]), ("accion" , ["Stallone", "Willis", "Suar"]) , ("drama", ["De Niro", "Foster"])]
+
+esDelMismoGenero :: [( Genero , Actores )] -> Pelicula ->  Bool
+esDelMismoGenero todosLosActores peli = 
+
+cuantosActoresHay [actores] =     
+
+pelicula -> [actores]
+listaactoresXGenero = todosLosActores -> map snd todosLosActores -> [[actores comedia], [actores accion], [actores drama]]
+
