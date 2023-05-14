@@ -61,7 +61,7 @@ Existen diversos premios a las películas, como ser:
 -}
 
 premioClasicoSetentista :: Pelicula -> Bool
-premioClasicoSetentista pelicula = 1970 >= anio pelicula || 1979 >= anio pelicula
+premioClasicoSetentista pelicula = anio pelicula >= 1970  && anio pelicula <= 1979 
 
 premioPlomo :: Pelicula -> Bool
 premioPlomo pelicula = duracion pelicula > 180 

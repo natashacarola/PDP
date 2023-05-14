@@ -26,3 +26,27 @@ a = (+1)
 
 promedioFrecuenciaCardiaco :: [Int] -> Float
 promedioFrecuenciaCardiaco lista2 = fromIntegral (sum lista2) / fromIntegral (length lista2)
+
+
+{- Definir la función esCapicua/1, si data una lista de listas, me devuelve si la concatenación de las 
+sublistas es una lista capicua..Ej: 
+Main> esCapicua ["ne", "uqu", "en"] 
+True 
+Porque “neuquen” es capicua.
+Ayuda: Utilizar concat/1, reverse/1. -}
+
+
+esCapicua :: [String] -> Bool
+esCapicua lista = concat lista == reverse (concat lista)
+
+{-Se tiene información detallada de la duración en minutos de las llamadas que se llevaron a cabo en un 
+período determinado, discriminadas en horario normal y horario reducido. 
+duracionLlamadas = (("horarioReducido",[20,10,25,15]),(“horarioNormal”,[10,5,8,2,9,10])). -}
+
+duracionllamadas :: ((String, [Int]), (String, [Int]))
+duracionllamadas = (("horarioReducido",[20,10,25,15]),("horarioNormal",[10,5,8,2,9,10]))
+
+{-Definir la función cuandoHabloMasMinutos, devuelve en que horario se habló más cantidad de minutos, 
+en el de tarifa normal o en el reducido. 
+Main> cuandoHabloMasMinutos 
+“horarioReducido” -}
